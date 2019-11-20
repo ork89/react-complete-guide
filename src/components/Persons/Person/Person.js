@@ -20,11 +20,11 @@ const StyledDiv = styled.div`
 
 const person = props => {
     //To be used (via Radium) in the root component with 'StyleRoot' for media queries
-    const style = {
-        '@media (min-width: 500px)': {
-            width: '450px'
-        }
-    };
+    // const style = {
+    //     '@media (min-width: 500px)': {
+    //         width: '450px'
+    //     }
+    // };
 
     return (
         //<div className='Person' style={style}>
