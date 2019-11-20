@@ -3,17 +3,20 @@ import React, { Component } from 'react';
 import Person from './Person/Person';
 //import Radium, {StyleRoot} from 'radium';
 import styled from 'styled-components';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+
 import './App.css';
 
 const StyledButton = styled.button`
-    background-color: ${props => props.altStyle ? 'red' : 'green'};
+    background-color: ${props => (props.altStyle ? 'red' : 'green')};
     color: white;
     font: inherit;
     border: 1px solid #ccc;
     padding: 8px;
     cursor: pointer;
     &:hover {
-        background-color: ${props => props.altStyle ? 'salmon' : 'lightGreen'};
+        background-color: ${props =>
+            props.altStyle ? 'salmon' : 'lightGreen'};
         color: black;
     }
 `;
@@ -78,15 +81,23 @@ class App extends Component {
                 <div>
                     {this.state.persons.map((person, index) => {
                         return (
-                            <Person
-                                click={() => this.deletePersonHandler(index)}
-                                name={person.name}
-                                age={person.age}
-                                key={person.id}
-                                changed={event =>
-                                    this.nameChangedHandler(event, person.id)
-                                }
-                            />
+                            <ErrorBoundary key={person.id}>
+                                {' '}
+                                <Person
+                                    click={() =>
+                                        this.deletePersonHandler(index)
+                                    }
+                                    name={person.name}
+                                    age={person.age}
+                                    //key={person.id}
+                                    changed={event =>
+                                        this.nameChangedHandler(
+                                            event,
+                                            person.id
+                                        )
+                                    }
+                                />{' '}
+                            </ErrorBoundary>
                         );
                     })}
                 </div>
@@ -117,7 +128,9 @@ class App extends Component {
                 <p className={classes.join(' ')}>
                     This is a secondary Headline
                 </p>
-                <StyledButton altStyle={this.state.showPersons} onClick={this.togglepersonsHandler}>
+                <StyledButton
+                    altStyle={this.state.showPersons}
+                    onClick={this.togglepersonsHandler}>
                     Toggle persons
                 </StyledButton>
                 {persons}
