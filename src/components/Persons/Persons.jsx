@@ -1,3 +1,7 @@
+// import React, { PureComponent } from 'react'; // Can be used when by default you want
+// to check if any of the properties changed because it's a regular compinent that already has the "shouldComponentUpdate"
+// function for every property of the component.
+
 import React, { Component } from 'react';
 import Person from './Person/Person';
 
@@ -9,7 +13,11 @@ class Persons extends Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Persons.jsx] shouldComponentUpdate');
-        return true;
+        if(nextProps.persons !== this.props.persons) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
